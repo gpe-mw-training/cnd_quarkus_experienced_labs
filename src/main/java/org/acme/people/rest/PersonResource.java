@@ -34,6 +34,19 @@ public class PersonResource {
     }
 
     // TODO: add basic queries
+    @GET
+    @Path("/eyes/{color}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Person> findByColor(@PathParam(value = "color") EyeColor color) {
+        return Person.findByColor(color);
+    }
+
+    @GET
+    @Path("/birth/before/{year}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Person> getBeforeYear(@PathParam(value = "year") int year) {
+        return Person.getBeforeYear(year);
+    }
 
     // TODO: add datatable query
 

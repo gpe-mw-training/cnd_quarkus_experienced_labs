@@ -27,4 +27,14 @@ public class Person extends PanacheEntity {
     public EyeColor eyes;
 
     // TODO: Add more queries
+    public static List<Person> findByColor(EyeColor color) {
+        return list("eyes", color);
+    }
+
+    public static List<Person> getBeforeYear(int year) {
+        return Person.<Person>streamAll()
+                .filter(p -> p.birth.getYear() <= year)
+                .collect(Collectors.toList());
+    }
+
 }
