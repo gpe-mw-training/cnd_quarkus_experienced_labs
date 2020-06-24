@@ -44,6 +44,11 @@
       <artifactId>quarkus-smallrye-health</artifactId>
       <version>${quarkus.version}</version>
     </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-smallrye-metrics</artifactId>
+      <version>${quarkus.version}</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
