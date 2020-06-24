@@ -2,18 +2,18 @@ package org.acme.people.rest;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
+import javax.inject.Inject;
 import javax.transaction.Transactional;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
+import io.vertx.axle.core.eventbus.EventBus;
+import io.vertx.axle.core.eventbus.Message;
 import org.acme.people.model.DataTable;
 import org.acme.people.model.EyeColor;
 import org.acme.people.model.Person;
@@ -26,6 +26,9 @@ import io.quarkus.hibernate.orm.panache.PanacheQuery;
 @Path("/person")
 @ApplicationScoped
 public class PersonResource {
+
+    @Inject
+    EventBus bus;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -99,6 +102,21 @@ public class PersonResource {
             p.name = name;
             Person.persist(p);
         }
+    }
+
+    @POST
+    @Path("/{name}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public CompletionStage<String> addPerson(@PathParam("name") String name) {
+        return bus.<String>send("add-person", name)
+                .thenApply(Message::body);
+    }
+
+    @GET
+    @Path("/name/{name}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Person byName(@PathParam("name") String name) {
+        return Person.find("name", name).firstResult();
     }
 
 }
