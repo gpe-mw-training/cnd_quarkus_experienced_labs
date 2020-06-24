@@ -2,7 +2,7 @@
 
 USER_PROJECT_NAME=gpte-${USER}-quarkus-deploy-lab
 
-oc ${USER_PROJECT_NAME}
+oc project ${USER_PROJECT_NAME}
 
 oc new-app \
     -e POSTGRESQL_USER=sa \
