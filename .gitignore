@@ -104,6 +104,7 @@ local.properties
 # auto-import.
 .idea/modules.xml
 .idea/*.iml
+.idea/*.xml
 .idea/modules
 *.iml
 *.ipr
