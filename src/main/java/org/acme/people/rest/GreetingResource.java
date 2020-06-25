@@ -11,6 +11,10 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 
+import javax.inject.Inject;
+import org.acme.people.service.GreetingService;
+import javax.ws.rs.PathParam;
+
 @Path("/hello")
 public class GreetingResource {
 
@@ -24,6 +28,16 @@ public class GreetingResource {
 
     @ConfigProperty(name = "greeting.name")
     Optional<String> name;
+
+    @Inject
+    GreetingService service;
+
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    @Path("/greeting/{name}")
+    public String greeting(@PathParam("name") String name) {
+        return service.greeting(name);
+    }
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
