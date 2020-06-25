@@ -74,6 +74,16 @@
       <artifactId>quarkus-vertx</artifactId>
       <version>${quarkus.version}</version>
     </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-smallrye-opentracing</artifactId>
+      <version>${quarkus.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-rest-client</artifactId>
+      <version>${quarkus.version}</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
